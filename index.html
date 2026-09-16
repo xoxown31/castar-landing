@@ -4,98 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Query2Filter</title>
+<meta name="description" content="Query2Filter: Symbolic Filter Extraction for Entangled-Token Person Retrieval — Castar Team, Capstone Design II.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FAF9F5;
-    --surface:#FFFFFF;
-    --surface-2:#F1EFE7;
-    --ink:#1C1B17;
-    --ink-muted:#57544A;
-    --ink-faint:#8B8677;
-    --line: rgba(28,27,23,0.12);
-    --line-strong: rgba(28,27,23,0.26);
-    --accent:#20447D;
-    --accent-soft: rgba(32,68,125,0.08);
-    --track: rgba(28,27,23,0.08);
+    --bg:#050505;
+    --surface:#101010;
+    --surface-2:#161616;
+    --ink:#F2F1EC;
+    --ink-muted:#9A9A94;
+    --ink-faint:#6B6B66;
+    --line: rgba(255,255,255,0.10);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent:#FFFFFF;
+    --accent-soft: rgba(255,255,255,0.07);
+    --track: rgba(255,255,255,0.08);
+    --glow: 0 0 20px rgba(255,255,255,0.55), 0 0 54px rgba(255,255,255,0.22);
+    --glow-soft: 0 0 16px rgba(255,255,255,0.28);
 
     --font-display:'Source Serif 4','Noto Serif KR',Georgia,serif;
     --font-body:'IBM Plex Sans','IBM Plex Sans KR','Apple SD Gothic Neo',sans-serif;
     --font-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#14161B;
-      --surface:#1B1E24;
-      --surface-2:#23262C;
-      --ink:#ECEAE2;
-      --ink-muted:#A6A296;
-      --ink-faint:#726E60;
-      --line: rgba(236,234,226,0.12);
-      --line-strong: rgba(236,234,226,0.26);
-      --accent:#7FB0F2;
-      --accent-soft: rgba(127,176,242,0.14);
-      --track: rgba(236,234,226,0.10);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#14161B; --surface:#1B1E24; --surface-2:#23262C;
-    --ink:#ECEAE2; --ink-muted:#A6A296; --ink-faint:#726E60;
-    --line: rgba(236,234,226,0.12); --line-strong: rgba(236,234,226,0.26);
-    --accent:#7FB0F2; --accent-soft: rgba(127,176,242,0.14);
-    --track: rgba(236,234,226,0.10);
-  }
 
   *{ box-sizing:border-box; }
+  html{ background:var(--bg); }
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:var(--font-body); font-size:16px; line-height:1.65;
-    padding-inline:20px; -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3{ font-family:var(--font-display); text-wrap:balance; margin:0; }
   p{ margin:0; }
   a{ color:var(--accent); }
-  .wrap{ max-width:740px; margin:0 auto; }
+  .wrap{ max-width:740px; margin:0 auto; padding-inline:20px; }
 
-  header.hero{ text-align:center; padding-block:56px 40px; border-bottom:1px solid var(--line); }
+  /* ============ TOP NAV ============ */
+  .topnav{
+    position:relative; z-index:5;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; max-width:1120px; margin:0 auto; padding:22px 24px 6px;
+    flex-wrap:wrap;
+  }
+  .logo{
+    font-family:var(--font-display); font-weight:600; font-size:21px;
+    letter-spacing:.01em; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:baseline; flex:0 0 auto;
+  }
+  .logo .t-wrap{ position:relative; display:inline-block; }
+  .logo .star{
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:8px; height:8px; color:#fff;
+    filter:drop-shadow(0 0 5px rgba(255,255,255,.85));
+  }
+  .nav-links{
+    display:flex; gap:26px; flex-wrap:wrap; font-family:var(--font-mono);
+    font-size:12px; letter-spacing:.03em;
+  }
+  .nav-links a{
+    color:var(--ink-muted); text-decoration:none; border-bottom:1px solid transparent;
+    padding-bottom:2px; transition:color .15s, border-color .15s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink); border-color:var(--line-strong); }
+  .nav-cta{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.02em;
+    background:#fff; color:#050505; border-radius:999px; padding:8px 18px;
+    text-decoration:none; font-weight:600; white-space:nowrap; flex:0 0 auto;
+    transition: box-shadow .15s, transform .15s;
+  }
+  .nav-cta:hover, .nav-cta:focus-visible{ box-shadow:0 0 22px rgba(255,255,255,.35); transform:translateY(-1px); }
+  @media (max-width:680px){
+    .topnav{ justify-content:center; text-align:center; }
+    .nav-links{ order:3; width:100%; justify-content:center; gap:16px; margin-top:8px; }
+  }
+
+  /* ============ HERO ============ */
+  header.hero{
+    position:relative; text-align:center; padding:44px 20px 92px;
+    overflow:hidden; isolation:isolate;
+  }
+  header.hero::before{
+    content:''; position:absolute; top:-140px; left:50%; transform:translateX(-50%);
+    width:920px; max-width:200vw; height:540px;
+    background:radial-gradient(ellipse at top, rgba(255,255,255,.11), rgba(255,255,255,0) 66%);
+    pointer-events:none; z-index:-1;
+  }
+  .spotlight-icon{ display:flex; justify-content:center; margin-bottom:2px; }
+
   .eyebrow{
     font-family:var(--font-mono); font-size:11.5px; letter-spacing:.12em;
     text-transform:uppercase; color:var(--ink-muted);
   }
-  h1.title{ font-size:clamp(38px,8vw,58px); font-weight:700; margin-top:18px; line-height:1.05; }
+  h1.title{ font-size:clamp(40px,9vw,64px); font-weight:700; margin-top:20px; line-height:1.05; }
+  h1.title .dim{ color:#4c4c49; }
+  h1.title .glow{ color:#fff; text-shadow:var(--glow); }
   .subtitle{
     font-family:var(--font-display); font-style:italic; font-weight:500;
     font-size:clamp(16px,3vw,20px); color:var(--ink-muted);
-    margin-top:12px; max-width:560px; margin-inline:auto;
+    margin-top:16px; max-width:480px; margin-inline:auto;
   }
-  .authors{ margin-top:18px; font-size:14px; color:var(--ink-muted); }
+  .authors{ margin-top:20px; font-size:14px; color:var(--ink-muted); }
   .venue-pill{
     display:inline-block; margin-top:14px; font-family:var(--font-mono);
     font-size:11.5px; letter-spacing:.04em; border:1px solid var(--line-strong);
-    border-radius:20px; padding:5px 14px; color:var(--ink-muted);
+    border-radius:999px; padding:5px 14px; color:var(--ink-muted);
   }
   .links-row{
     display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
-    margin-top:22px; font-family:var(--font-mono); font-size:12.5px;
+    margin-top:26px; font-family:var(--font-mono); font-size:12.5px;
   }
   .link-pill{
-    border:1px solid var(--line-strong); border-radius:5px; padding:7px 13px;
+    border:1px solid var(--line-strong); border-radius:999px; padding:9px 17px;
     color:var(--ink-muted);
   }
-  .link-pill.live{ border-color:var(--accent); color:var(--accent); text-decoration:none; }
-  .link-pill.live:hover, .link-pill.live:focus-visible{ background:var(--accent-soft); }
-  nav.index-nav{
-    display:flex; gap:20px; flex-wrap:wrap; justify-content:center;
-    margin-top:30px; font-family:var(--font-mono); font-size:12px; letter-spacing:.03em;
+  .link-pill.filled{
+    background:#fff; border-color:#fff; color:#050505; font-weight:600; text-decoration:none;
+    transition: box-shadow .15s, transform .15s;
   }
-  nav.index-nav a{
-    text-decoration:none; color:var(--ink-muted); border-bottom:1px solid transparent;
-    padding-bottom:2px; transition:color .15s, border-color .15s;
+  .link-pill.filled:hover, .link-pill.filled:focus-visible{
+    box-shadow:0 0 24px rgba(255,255,255,.4); transform:translateY(-1px);
   }
-  nav.index-nav a:hover, nav.index-nav a:focus-visible{ color:var(--accent); border-color:var(--accent); }
+  .link-pill.outline{ background:transparent; }
 
+  .scroll-indicator{
+    position:absolute; left:22px; bottom:26px; z-index:5;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    color:var(--ink-faint); font-family:var(--font-mono); font-size:10px;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  .scroll-indicator span{ writing-mode:vertical-rl; transform:rotate(180deg); }
+  .scroll-indicator i{ display:block; width:1px; height:42px; background:var(--line-strong); }
+  @media (max-width:680px){ .scroll-indicator{ display:none; } }
+
+  /* ============ DOCUMENT SECTIONS ============ */
   section{ padding-block:48px; border-bottom:1px solid var(--line); }
   section:last-of-type{ border-bottom:none; }
   section > .eyebrow{ display:flex; gap:10px; align-items:baseline; margin-bottom:10px; flex-wrap:wrap; }
@@ -117,6 +160,7 @@
   .stat-num{
     font-family:var(--font-mono); font-weight:600; font-size:clamp(28px,6vw,40px);
     color:var(--accent); font-variant-numeric:tabular-nums; line-height:1;
+    text-shadow:var(--glow-soft);
   }
   .stat-label{ margin-top:10px; font-size:13.5px; font-weight:600; }
   .stat-sub{ margin-top:4px; font-size:12px; color:var(--ink-faint); }
@@ -130,7 +174,7 @@
   .bar-label b{ color:var(--ink); font-weight:600; }
   .bar-track{ height:16px; border-radius:3px; background:var(--track); overflow:hidden; }
   .bar-fill{ height:100%; border-radius:3px; background:var(--ink-faint); opacity:.55; }
-  .bar-fill.accent{ background:var(--accent); opacity:1; }
+  .bar-fill.accent{ background:var(--accent); opacity:1; box-shadow:0 0 12px rgba(255,255,255,.35); }
   .bar-val{ font-family:var(--font-mono); font-size:12px; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; }
   .chart-ticks{
     display:flex; justify-content:space-between; margin-left:196px; margin-top:4px;
@@ -141,13 +185,13 @@
   .badge-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
   .badge{
     font-family:var(--font-mono); font-size:11.5px; border:1px solid var(--line-strong);
-    border-radius:20px; padding:5px 12px; color:var(--ink-muted);
+    border-radius:999px; padding:5px 12px; color:var(--ink-muted);
   }
   .badge b{ color:var(--accent); }
 
   .callout{
-    margin-top:22px; padding:16px 18px; background:var(--accent-soft);
-    border:1px solid var(--accent); border-radius:6px; font-size:13.5px; color:var(--ink);
+    margin-top:22px; padding:16px 18px; background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.24); border-radius:6px; font-size:13.5px; color:var(--ink);
   }
   .callout b{ color:var(--accent); }
   .callout.neg{ background:transparent; border:1px dashed var(--line-strong); }
@@ -163,35 +207,60 @@
   }
 
   footer{
-    padding-block:32px 46px; display:flex; justify-content:space-between;
+    max-width:740px; margin:0 auto; padding:32px 20px 46px; display:flex; justify-content:space-between;
     flex-wrap:wrap; gap:8px; font-family:var(--font-mono); font-size:11px; color:var(--ink-faint);
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="hero">
-    <p class="eyebrow">Castar Team — Capstone Design II — Research Track</p>
-    <h1 class="title">Query2Filter</h1>
-    <p class="subtitle">Symbolic Filter Extraction for Entangled-Token Person Retrieval</p>
-    <p class="authors">Castar Team, Capstone Design II</p>
-    <span class="venue-pill">NAACL Findings — submission in preparation</span>
-
-    <div class="links-row">
-      <span class="link-pill">Paper — draft, not yet public</span>
-      <a class="link-pill live" href="https://github.com/xoxown31/castar-landing" target="_blank" rel="noopener">Code (this site) ↗</a>
-      <span class="link-pill">Data — CelebA + UTKFace (public benchmarks)</span>
-    </div>
-
-    <nav class="index-nav">
+  <!-- ============ TOP NAV ============ -->
+  <nav class="topnav">
+    <a class="logo" href="#top" aria-label="Castar">cas<span class="t-wrap">t<svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.4 7.6H22l-6.2 4.5 2.4 7.6L12 15.2 5.8 19.7l2.4-7.6L2 7.6h7.6z"/></svg></span>ar</a>
+    <div class="nav-links">
       <a href="#abstract">Abstract</a>
       <a href="#method">Method</a>
       <a href="#results">Results</a>
       <a href="#citation">Citation</a>
       <a href="#team">Team</a>
-    </nav>
+    </div>
+    <a class="nav-cta" href="https://github.com/xoxown31/castar-landing" target="_blank" rel="noopener">Code ↗</a>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="spotlight-icon" aria-hidden="true">
+      <svg width="46" height="56" viewBox="0 0 46 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="spotGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="23" cy="49" rx="22" ry="6" fill="url(#spotGrad)"/>
+        <path d="M9 17L2 47" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+        <path d="M37 17L44 47" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+        <path d="M14 4H32L37 17H9L14 4Z" fill="#111111" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <rect x="19" y="0" width="8" height="5" rx="1.5" fill="rgba(255,255,255,0.5)"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow">Castar Team — Capstone Design II — Research Track</p>
+    <h1 class="title"><span class="dim">Query2</span><span class="glow">Filter</span></h1>
+    <p class="subtitle">Symbolic Filter Extraction for Entangled-Token Person Retrieval</p>
+    <p class="authors">Castar Team, Capstone Design II</p>
+    <span class="venue-pill">NAACL Findings — submission in preparation</span>
+
+    <div class="links-row">
+      <span class="link-pill outline">Paper — draft, not yet public</span>
+      <a class="link-pill filled" href="https://github.com/xoxown31/castar-landing" target="_blank" rel="noopener">Code (this site) ↗</a>
+      <span class="link-pill outline">Data — CelebA + UTKFace (public benchmarks)</span>
+    </div>
+
+    <div class="scroll-indicator"><span>Scroll down</span><i></i></div>
   </header>
+
+  <div class="wrap">
 
   <!-- ============ ABSTRACT ============ -->
   <section id="abstract">
@@ -373,11 +442,12 @@
     </div>
   </section>
 
+  </div>
+
   <footer>
     <span>CASTAR TEAM · CAPSTONE DESIGN II (캡스톤디자인2) · 2026</span>
     <span>QUERY2FILTER — RETRIEVAL BEYOND THE SCHEMA-INDUCED CAPACITY CEILING</span>
   </footer>
 
-</div>
 </body>
 </html>
