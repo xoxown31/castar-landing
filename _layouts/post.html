@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="post-head">
+    <div class="measure">
+      <p class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: '%B %-d, %Y' }}</time>
+        <span aria-hidden="true">·</span>
+        <span itemprop="author">{{ page.author | default: site.author.name }}</span>
+        {%- assign words = content | strip_html | number_of_words -%}
+        {%- assign minutes = words | divided_by: 220 | plus: 1 %}
+        <span aria-hidden="true">·</span>
+        <span>{{ minutes }} min read</span>
+      </p>
+      <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+      {%- if page.description %}
+      <p class="post-lede" itemprop="description">{{ page.description }}</p>
+      {%- endif %}
+    </div>
+  </header>
+  <div class="prose measure" itemprop="articleBody">
+{{ content }}
+  </div>
+  <footer class="post-foot measure">
+    <a class="back-link" href="{{ '/' | relative_url }}">&larr; All posts</a>
+  </footer>
+</article>

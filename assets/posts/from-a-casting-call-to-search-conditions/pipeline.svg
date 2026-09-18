@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="500" viewBox="0 0 1240 500" role="img" aria-labelledby="t d">
+  <title id="t">From a casting call to search conditions</title>
+  <desc id="d">A fictional casting call (supporting male role, early 40s to early 50s, fluent English required, 178 cm or taller, swimming a plus, a warm but weathered face, short hair) goes to an LLM in one call that outputs JSON. The symbolic branch yields structured fields: gender = male, age 40–53, height ≥ 178, English required, swimming preferred; these are applied as a strict filter. The semantic branch yields the appearance text "a man with a warm, weathered face, short hair", matched against photos in a shared image–text space and used to rank. Both lead to a shortlist.</desc>
+  <style>
+    .label { font: 600 11px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; letter-spacing: 2.4px; fill: #7d7d7d; }
+    .body { font: 400 15px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #cfcfcf; }
+    .strong { font-weight: 600; fill: #ffffff; }
+    .warm { fill: #f1c27d; }
+    .chip { font: 500 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #e9e9e9; }
+    .chipwarm { font: 500 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #f6d7a5; }
+    .node { font: 600 17px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #ffffff; }
+    .sub { font: 400 12px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #9a9a9a; }
+    .note { font: italic 400 12.5px 'Source Serif 4', Georgia, 'Times New Roman', serif; fill: #a8a8a8; }
+    .wordmark { font: 700 22px 'Source Serif 4', Georgia, 'Times New Roman', serif; fill: #ffffff; letter-spacing: 0.5px; }
+    text { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  </style>
+  <defs>
+    <radialGradient id="spot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff4dc" stop-opacity="0.35"/>
+      <stop offset="45%" stop-color="#f1c27d" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/>
+    </marker>
+    <marker id="arrowWarm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d9a85c"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="500" fill="#050505"/>
+
+  <!-- wordmark -->
+  <text x="40" y="52" class="wordmark">cas<tspan>&#x2726;</tspan>ar</text>
+  <text x="40" y="74" class="label">FROM A CASTING CALL TO SEARCH CONDITIONS</text>
+
+  <!-- casting call card -->
+  <rect x="40" y="130" width="330" height="330" rx="18" fill="#0d0d0d" stroke="#262626"/>
+  <text x="64" y="166" class="label">CASTING CALL</text>
+  <text x="64" y="206" class="body"><tspan class="strong">Supporting male</tspan> role,</text>
+  <text x="64" y="232" class="body"><tspan class="strong">early 40s to early 50s</tspan>.</text>
+  <text x="64" y="268" class="body"><tspan class="strong">Fluent English</tspan> required.</text>
+  <text x="64" y="294" class="body"><tspan class="strong">178 cm</tspan> or taller.</text>
+  <text x="64" y="320" class="body"><tspan class="strong">Swimming</tspan> a plus.</text>
+  <text x="64" y="356" class="body"><tspan class="warm">A warm but weathered face,</tspan></text>
+  <text x="64" y="382" class="body"><tspan class="warm">short hair.</tspan></text>
+  <text x="64" y="432" class="sub">Fictional example</text>
+
+  <!-- arrow to LLM -->
+  <line x1="372" y1="295" x2="440" y2="295" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LLM node with spotlight -->
+  <circle cx="530" cy="295" r="150" fill="url(#spot)"/>
+  <rect x="450" y="262" width="160" height="66" rx="33" fill="#111" stroke="#ffffff" stroke-opacity="0.85" filter="url(#glow)"/>
+  <text x="530" y="293" class="node" text-anchor="middle">LLM</text>
+  <text x="530" y="313" class="sub" text-anchor="middle">one call · JSON out</text>
+
+  <!-- symbolic branch -->
+  <path d="M610,280 C660,280 660,175 710,175" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="716" y="118" class="label">SYMBOLIC · STRUCTURED FIELDS</text>
+  <g>
+    <rect x="716" y="132" width="150" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
+    <text x="791" y="153" class="chip" text-anchor="middle">gender = male</text>
+    <rect x="876" y="132" width="120" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
+    <text x="936" y="153" class="chip" text-anchor="middle">age 40–53</text>
+    <rect x="716" y="174" width="140" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
+    <text x="786" y="195" class="chip" text-anchor="middle">height ≥ 178</text>
+    <rect x="866" y="174" width="170" height="32" rx="16" fill="#141414" stroke="#ffffff" stroke-opacity="0.6"/>
+    <text x="951" y="195" class="chip" text-anchor="middle">English · required</text>
+    <rect x="716" y="216" width="190" height="32" rx="16" fill="#141414" stroke="#3a3a3a" stroke-dasharray="4 3"/>
+    <text x="811" y="237" class="chip" text-anchor="middle">swimming · preferred</text>
+  </g>
+
+  <!-- semantic branch -->
+  <path d="M610,310 C660,310 660,420 710,420" fill="none" stroke="#d9a85c" stroke-width="1.5" marker-end="url(#arrowWarm)"/>
+  <text x="716" y="372" class="label">SEMANTIC · APPEARANCE</text>
+  <rect x="716" y="392" width="370" height="36" rx="18" fill="#17120a" stroke="#d9a85c" stroke-opacity="0.8"/>
+  <text x="901" y="415" class="chipwarm" text-anchor="middle">"a man with a warm, weathered face, short hair"</text>
+  <text x="716" y="452" class="sub">matched against photos in a shared image–text space</text>
+
+  <!-- converge -->
+  <line x1="1096" y1="190" x2="1140" y2="190" stroke="#8a8a8a" stroke-width="1.5"/>
+  <text x="1100" y="180" class="sub">strict filter</text>
+  <line x1="1096" y1="410" x2="1140" y2="410" stroke="#d9a85c" stroke-width="1.5"/>
+  <text x="1100" y="400" class="sub">rank</text>
+  <path d="M1140,190 L1140,280" stroke="#8a8a8a" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M1140,410 L1140,322" stroke="#d9a85c" stroke-width="1.5" fill="none" marker-end="url(#arrowWarm)"/>
+  <rect x="1082" y="284" width="116" height="36" rx="18" fill="#ffffff"/>
+  <text x="1140" y="307" class="node" text-anchor="middle" style="fill:#050505;font-size:15px">Shortlist</text>
+
+</svg>

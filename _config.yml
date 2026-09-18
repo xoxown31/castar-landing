@@ -1,0 +1,51 @@
+title: Castar
+tagline: Engineering notes from Castar
+description: >-
+  Engineering notes from the Castar team on building an actor–casting
+  matching platform: how casting calls become search conditions, how we
+  handle appearance, and the decisions behind them.
+url: "https://xoxown31.github.io"
+baseurl: "/castar-landing"
+lang: en
+timezone: Asia/Seoul
+author:
+  name: Castar Team
+
+# jekyll-seo-tag
+logo: /assets/img/castar-mark.svg
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+
+permalink: /blog/:year/:month/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: Castar Team
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .jekyll-cache

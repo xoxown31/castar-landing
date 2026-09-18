@@ -1,0 +1,12 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="Castar — blog home">cas<span class="wordmark__t">t<svg class="wordmark__star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0l2.4 7.6H22l-6.2 4.5 2.4 7.6L12 15.2 5.8 19.7l2.4-7.6L2 7.6h7.6z"/></svg></span>ar</a>
+    <nav class="site-nav" aria-label="Main">
+      {%- assign on_blog = false -%}
+      {%- if page.url == '/' or page.layout == 'post' -%}{%- assign on_blog = true -%}{%- endif %}
+      <a href="{{ '/' | relative_url }}"{% if on_blog %} aria-current="page"{% endif %}>Blog</a>
+      <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<article class="page">
+  <header class="page-head measure">
+    <h1 class="page-title">{{ page.title }}</h1>
+    {%- if page.lede %}
+    <p class="page-lede">{{ page.lede }}</p>
+    {%- endif %}
+  </header>
+  <div class="prose measure">
+{{ content }}
+  </div>
+</article>
