@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="500" viewBox="0 0 1240 500" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="640" viewBox="0 0 700 640" role="img" aria-labelledby="t d">
   <title id="t">From a casting call to search conditions</title>
   <desc id="d">A fictional casting call (supporting male role, early 40s to early 50s, fluent English required, 178 cm or taller, swimming a plus, a warm but weathered face, short hair) goes to an LLM in one call that outputs JSON. The symbolic branch yields structured fields: gender = male, age 40–53, height ≥ 178, English required, swimming preferred; these are applied as a strict filter. The semantic branch yields the appearance text "a man with a warm, weathered face, short hair", matched against photos in a shared image–text space and used to rank. Both lead to a shortlist.</desc>
   <style>
-    .label { font: 600 11px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; letter-spacing: 2.4px; fill: #7d7d7d; }
+    .label { font: 600 11px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; letter-spacing: 2.2px; fill: #8a8a8a; }
     .body { font: 400 15px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #cfcfcf; }
     .strong { font-weight: 600; fill: #ffffff; }
     .warm { fill: #f1c27d; }
-    .chip { font: 500 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #e9e9e9; }
-    .chipwarm { font: 500 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #f6d7a5; }
+    .chip { font: 500 13.5px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #ececec; }
+    .chipwarm { font: 500 13.5px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #f6d7a5; }
     .node { font: 600 17px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #ffffff; }
-    .sub { font: 400 12px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #9a9a9a; }
-    .note { font: italic 400 12.5px 'Source Serif 4', Georgia, 'Times New Roman', serif; fill: #a8a8a8; }
-    .wordmark { font: 700 22px 'Source Serif 4', Georgia, 'Times New Roman', serif; fill: #ffffff; letter-spacing: 0.5px; }
-    text { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+    .sub { font: 400 12.5px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #a0a0a0; }
   </style>
   <defs>
     <radialGradient id="spot" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fff4dc" stop-opacity="0.35"/>
-      <stop offset="45%" stop-color="#f1c27d" stop-opacity="0.10"/>
+      <stop offset="0%" stop-color="#fff4dc" stop-opacity="0.32"/>
+      <stop offset="45%" stop-color="#f1c27d" stop-opacity="0.09"/>
       <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
     </radialGradient>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feGaussianBlur stdDeviation="5" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -32,65 +29,57 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#d9a85c"/>
     </marker>
   </defs>
+  <rect width="700" height="640" fill="#050505"/>
 
-  <rect width="1240" height="500" fill="#050505"/>
+  <g transform="translate(24 12) scale(0.7)" fill="#ffffff" aria-label="castar"><path d="M10.1387 12.085C11.9737 12.085 13.5257 12.5208 14.792 13.3916C16.0592 14.2625 16.6934 15.3223 16.6934 16.5693C16.6933 17.2658 16.4883 17.8313 16.0811 18.2666C15.6728 18.702 15.1477 18.9189 14.5078 18.9189C12.9633 18.9188 12.1914 18.2376 12.1914 16.873C12.1914 16.5248 12.2855 16.112 12.4756 15.6328C12.6647 15.1546 12.7596 14.8133 12.7598 14.6104C12.7598 14.0592 12.5477 13.5867 12.126 13.1953C11.7033 12.8039 11.1871 12.6075 10.5752 12.6074C7.92357 12.6074 6.59863 15.553 6.59863 21.4434C6.59868 24.8096 7.18058 27.2181 8.3457 28.668C9.24873 29.7713 10.3557 30.3222 11.667 30.3223C12.9784 30.3223 14.4346 29.4365 15.8623 27.666C16.037 27.4347 16.1969 27.3184 16.3428 27.3184C16.4587 27.3186 16.5175 27.4053 16.5176 27.5791C16.5176 28.1303 15.9925 28.9001 14.9443 29.8867C13.4293 31.3088 11.6076 32.0195 9.48145 32.0195C6.8598 32.0195 4.62369 31.0845 2.77344 29.2129C0.924873 27.3428 0 25.0723 0 22.4014C0.000101694 19.4999 0.976632 17.0559 2.92871 15.0674C4.88001 13.0797 7.28337 12.085 10.1387 12.085ZM78.7139 12.0996C81.7428 12.0996 83.8555 12.6364 85.0498 13.71C86.0115 14.6095 86.4922 16.1774 86.4922 18.4111V25.8545C86.4922 27.3054 86.5064 28.1467 86.5361 28.3789C86.6812 29.5972 87.1043 30.207 87.8037 30.207C88.2985 30.207 88.9105 29.8588 89.6396 29.1621C89.7847 29.0176 89.9018 28.9453 89.9893 28.9453C90.1353 28.9453 90.207 29.0197 90.207 29.166L90.208 29.168C90.2077 29.404 89.9745 29.7278 89.5088 30.1396C88.256 31.2888 86.7119 31.8633 84.876 31.8633C83.6813 31.8632 82.8153 31.6132 82.2764 31.1143C81.7942 30.6681 81.4577 29.9039 81.2666 28.8223C81.2441 28.693 81.0725 28.6593 81.0049 28.7725C79.7134 30.9199 77.9895 31.9941 75.8301 31.9941C74.5773 31.9941 73.5645 31.602 72.793 30.8184C72.0206 30.0346 71.6348 29.0194 71.6348 27.7715C71.6348 24.14 74.7383 21.9831 80.9453 21.2998C81.0174 21.2917 81.0723 21.2309 81.0723 21.1582V20.3711C81.0723 17.4696 80.9704 15.6846 80.7676 15.0166L80.7246 14.8057C80.7237 14.8012 80.7235 14.7965 80.7217 14.792C80.3125 13.3458 79.2784 12.6222 77.6211 12.6221C76.6594 12.6221 75.8869 12.8989 75.3047 13.4492C74.7216 14.0004 74.4297 14.5371 74.4297 15.0596C74.4297 15.3496 74.7801 15.5237 75.4795 15.582C76.5284 15.6692 77.0527 16.3077 77.0527 17.4971C77.0527 18.1354 76.8408 18.6649 76.4189 19.0859C75.9963 19.5069 75.4507 19.7177 74.7812 19.7178C73.9358 19.7178 73.2441 19.4633 72.7051 18.9561C72.1661 18.4488 71.8965 17.8023 71.8965 17.0186C71.8965 15.7707 72.5227 14.6393 73.7754 13.623C75.0273 12.6077 76.6743 12.0996 78.7139 12.0996ZM26.165 12.084C29.1941 12.084 31.3068 12.6216 32.501 13.6953C33.4625 14.5949 33.9433 16.1622 33.9434 18.3955V25.8398C33.9434 27.2913 33.9576 28.1327 33.9873 28.3643C34.1324 29.5821 34.5548 30.1922 35.2539 30.1924C35.7487 30.1924 36.3607 29.8432 37.0898 29.1465C37.235 29.0019 37.353 28.9297 37.4404 28.9297C37.5861 28.9298 37.6582 29.0043 37.6582 29.1504L37.6592 29.1523C37.6591 29.3885 37.4259 29.713 36.96 30.125C35.7072 31.2741 34.163 31.8486 32.3271 31.8486C31.132 31.8486 30.2655 31.5978 29.7266 31.0986C29.2444 30.6524 28.9079 29.8884 28.7168 28.8066C28.6943 28.6776 28.5238 28.6442 28.4561 28.7568C27.1645 30.9043 25.4398 31.9785 23.2803 31.9785C22.0277 31.9785 21.0146 31.5873 20.2432 30.8037C19.4708 30.0199 19.085 29.0038 19.085 27.7559C19.0852 24.1245 22.1894 21.9674 28.3965 21.2842C28.4684 21.2761 28.5232 21.216 28.5234 21.1436V20.3555C28.5234 17.454 28.4206 15.6689 28.2178 15.001L28.1758 14.79C28.1749 14.7858 28.1735 14.7816 28.1719 14.7773C27.7627 13.331 26.7288 12.6074 25.0713 12.6074C24.1097 12.6074 23.3371 12.8833 22.7549 13.4336C22.1717 13.9848 21.8809 14.5224 21.8809 15.0449C21.8812 15.3346 22.2308 15.509 22.9297 15.5674C23.9788 15.6545 24.5039 16.2929 24.5039 17.4824C24.5038 18.1205 24.2918 18.6503 23.8701 19.0713C23.4474 19.4923 22.9011 19.7021 22.2314 19.7021C21.386 19.7021 20.6943 19.4477 20.1553 18.9404C19.6167 18.4333 19.3478 17.7872 19.3477 17.0039C19.3477 15.756 19.9739 14.6247 21.2266 13.6084C22.4785 12.593 24.1254 12.084 26.165 12.084ZM50.6367 11.3906C50.8404 11.3906 50.9424 11.5647 50.9424 11.9131L50.8994 12.7295C50.8994 12.7365 50.8983 12.743 50.8965 12.75C50.8686 12.8676 50.8545 13.0679 50.8545 13.3496C50.8545 14.5373 50.9272 15.7538 51.0723 16.998V17.2236C51.0722 17.456 50.9844 17.5713 50.8096 17.5713C50.6637 17.5711 50.5473 17.4416 50.46 17.1807C49.6145 14.2207 47.8958 12.7412 45.3037 12.7412C44.3422 12.7412 43.5483 13.002 42.9229 13.5244C42.2965 14.0469 41.9834 14.7149 41.9834 15.5264C41.9834 16.2814 42.246 16.8761 42.7705 17.3115C43.2951 17.7469 44.3143 18.2408 45.8291 18.792C48.4798 19.7212 50.2722 20.6498 51.2041 21.5781C52.1357 22.5072 52.6025 23.7979 52.6025 25.4512L52.5957 25.8096C52.5258 27.589 51.9323 29.0433 50.8164 30.1719C49.6259 31.3766 48.0863 31.9784 46.1992 31.9785C45.2701 31.9785 44.1665 31.7463 42.8887 31.2822C41.8426 30.9053 41.161 30.716 40.8418 30.7158C40.2902 30.7158 39.9269 30.9275 39.7529 31.3477C39.5781 31.7677 39.4469 31.9785 39.3604 31.9785C39.1858 31.9784 39.0997 31.8762 39.0996 31.6719C39.0996 31.4959 39.123 31.2186 39.1689 30.8389C39.2383 30.284 39.2744 29.3197 39.2744 27.9473V25.8008C39.2744 25.4795 39.3462 25.3184 39.4912 25.3184C39.6652 25.3184 39.7954 25.5363 39.8828 25.9717C40.1433 27.5103 40.884 28.7945 42.1016 29.8242C43.32 30.8547 44.6837 31.3691 46.1914 31.3691C47.1485 31.3691 47.9247 31.0717 48.5195 30.4766C49.1144 29.8822 49.4121 29.1054 49.4121 28.1475C49.4121 27.3934 49.1345 26.754 48.582 26.2324C48.1737 25.8554 47.0811 25.3768 45.3047 24.7959C43.12 24.0714 41.5387 23.1928 40.5635 22.1631C39.5875 21.1334 39.1006 19.8198 39.1006 18.2236C39.1006 16.5116 39.6823 15.0606 40.8477 13.8711C42.013 12.6815 43.4409 12.0859 45.1309 12.0859C45.7717 12.086 46.8786 12.2896 48.4521 12.6963C48.6846 12.7546 48.8594 12.7832 48.9766 12.7832C49.6174 12.7832 50.0981 12.3912 50.4189 11.6074C50.4766 11.4631 50.5494 11.3907 50.6367 11.3906ZM104.323 12.1289C105.336 12.1289 106.164 12.4407 106.805 13.0645C107.445 13.6883 107.766 14.4751 107.766 15.4248C107.766 16.2866 107.511 16.9915 107.005 17.54C106.497 18.0895 105.842 18.3643 105.037 18.3643C103.428 18.3642 102.623 17.6226 102.623 16.1377C102.623 15.6332 102.817 15.1284 103.204 14.623C103.293 14.5046 103.339 14.4004 103.339 14.3115C103.339 14.0443 103.146 13.9103 102.766 13.9102C101.765 13.9102 101.001 14.6953 100.471 16.2646C100.177 17.1535 100.029 19.3305 100.029 22.7949V29.9473C100.029 30.7471 100.432 31.177 101.236 31.2363C101.713 31.266 102.279 31.2812 102.936 31.2812C103.263 31.3109 103.428 31.415 103.428 31.5928C103.428 31.8305 103.293 31.9492 103.025 31.9492H91.3115C90.9837 31.9492 90.8195 31.8529 90.8193 31.6602C90.8193 31.4671 91.028 31.3711 91.4453 31.3711C92.6672 31.3414 93.4041 31.2149 93.6582 30.9932C93.9105 30.7713 94.0381 30.1127 94.0381 29.0166L93.9941 17.0225C93.9941 16.0151 93.8514 15.3188 93.5684 14.9346C93.2844 14.5496 92.6511 14.3125 91.668 14.2236C90.8931 14.168 90.4532 14.1265 90.3496 14.0986C90.2451 14.0708 90.1944 13.9725 90.1943 13.8057C90.1943 13.6387 90.3129 13.5547 90.5518 13.5547H92.2061C94.4566 13.5547 96.8798 13.0994 99.4746 12.1846C99.5566 12.1559 99.6479 12.2019 99.666 12.2861C99.7904 12.8427 99.8525 13.4731 99.8525 14.1777V15.3262C99.8525 15.4833 100.067 15.5274 100.131 15.3838C100.619 14.2939 101.146 13.5026 101.708 13.0098C102.378 12.4228 103.25 12.129 104.323 12.1289ZM80.9023 21.8867C78.1913 22.4694 76.8369 24.0532 76.8369 26.6396C76.837 28.671 77.536 29.6863 78.9336 29.6865C79.7195 29.6865 80.2729 29.2507 80.5938 28.3799C80.9137 27.509 81.0742 26.0446 81.0742 23.9834H81.0752V22.0254C81.075 21.9357 80.9906 21.867 80.9023 21.8867ZM28.3535 21.8721C25.6424 22.4547 24.2871 24.0385 24.2871 26.625C24.2871 28.6567 24.9869 29.6719 26.3848 29.6719C27.1705 29.6718 27.7241 29.2368 28.0449 28.3662C28.3649 27.4954 28.5254 26.0308 28.5254 23.9697H28.5264V22.0117C28.5264 21.9221 28.4417 21.8527 28.3535 21.8721Z"/><path d="M71.7903 11.9996C66.8936 11.0776 63.2181 6.9657 62.7647 2.21551L62.5655 0.129955C62.5493 -0.0433182 62.2951 -0.0433182 62.278 0.129955L62.0788 2.21551C61.6255 6.9657 57.9509 11.0776 53.0532 11.9996C57.9473 12.9207 61.621 18.3909 62.0779 23.1393C62.0779 23.1447 62.0779 23.151 62.0779 23.1564C62.086 27.9622 59.7391 31.4825 56.9901 31.9996C59.8292 32.5338 61.959 36.7767 62.2221 39.5302L62.2528 39.8472C62.2726 40.0501 62.57 40.0501 62.5899 39.8472L62.6205 39.5302C62.8828 36.7767 65.0135 32.5338 67.8526 31.9996C65.1036 31.4825 62.7566 27.9622 62.7647 23.1564C62.7647 23.151 62.7647 23.1447 62.7647 23.1393C63.2217 18.3909 66.8954 12.9207 71.7894 11.9996H71.7903Z"/></g>
+  <text x="24" y="62" class="label">FROM A CASTING CALL TO SEARCH CONDITIONS</text>
 
-  <!-- wordmark -->
-  <text x="40" y="52" class="wordmark">cas<tspan>&#x2726;</tspan>ar</text>
-  <text x="40" y="74" class="label">FROM A CASTING CALL TO SEARCH CONDITIONS</text>
+  <!-- casting call -->
+  <rect x="24" y="84" width="652" height="150" rx="16" fill="#0d0d0d" stroke="#262626"/>
+  <text x="44" y="112" class="label">CASTING CALL</text>
+  <text x="44" y="144" class="body"><tspan class="strong">Supporting male</tspan> role, <tspan class="strong">early 40s to early 50s</tspan>.</text>
+  <text x="44" y="170" class="body"><tspan class="strong">Fluent English</tspan> required. <tspan class="strong">178 cm</tspan> or taller. <tspan class="strong">Swimming</tspan> a plus.</text>
+  <text x="44" y="204" class="body"><tspan class="warm">A warm but weathered face, short hair.</tspan></text>
+  <text x="656" y="220" class="sub" text-anchor="end">Fictional example</text>
 
-  <!-- casting call card -->
-  <rect x="40" y="130" width="330" height="330" rx="18" fill="#0d0d0d" stroke="#262626"/>
-  <text x="64" y="166" class="label">CASTING CALL</text>
-  <text x="64" y="206" class="body"><tspan class="strong">Supporting male</tspan> role,</text>
-  <text x="64" y="232" class="body"><tspan class="strong">early 40s to early 50s</tspan>.</text>
-  <text x="64" y="268" class="body"><tspan class="strong">Fluent English</tspan> required.</text>
-  <text x="64" y="294" class="body"><tspan class="strong">178 cm</tspan> or taller.</text>
-  <text x="64" y="320" class="body"><tspan class="strong">Swimming</tspan> a plus.</text>
-  <text x="64" y="356" class="body"><tspan class="warm">A warm but weathered face,</tspan></text>
-  <text x="64" y="382" class="body"><tspan class="warm">short hair.</tspan></text>
-  <text x="64" y="432" class="sub">Fictional example</text>
+  <line x1="350" y1="236" x2="350" y2="270" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- arrow to LLM -->
-  <line x1="372" y1="295" x2="440" y2="295" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- LLM -->
+  <circle cx="350" cy="306" r="110" fill="url(#spot)"/>
+  <rect x="270" y="276" width="160" height="60" rx="30" fill="#111" stroke="#ffffff" stroke-opacity="0.85" filter="url(#glow)"/>
+  <text x="350" y="303" class="node" text-anchor="middle">LLM</text>
+  <text x="350" y="322" class="sub" text-anchor="middle">one call · JSON out</text>
 
-  <!-- LLM node with spotlight -->
-  <circle cx="530" cy="295" r="150" fill="url(#spot)"/>
-  <rect x="450" y="262" width="160" height="66" rx="33" fill="#111" stroke="#ffffff" stroke-opacity="0.85" filter="url(#glow)"/>
-  <text x="530" y="293" class="node" text-anchor="middle">LLM</text>
-  <text x="530" y="313" class="sub" text-anchor="middle">one call · JSON out</text>
+  <!-- branches -->
+  <path d="M300,337 C300,372 172,360 172,396" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M400,337 C400,372 520,360 520,396" fill="none" stroke="#d9a85c" stroke-width="1.5" marker-end="url(#arrowWarm)"/>
 
-  <!-- symbolic branch -->
-  <path d="M610,280 C660,280 660,175 710,175" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <text x="716" y="118" class="label">SYMBOLIC · STRUCTURED FIELDS</text>
-  <g>
-    <rect x="716" y="132" width="150" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
-    <text x="791" y="153" class="chip" text-anchor="middle">gender = male</text>
-    <rect x="876" y="132" width="120" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
-    <text x="936" y="153" class="chip" text-anchor="middle">age 40–53</text>
-    <rect x="716" y="174" width="140" height="32" rx="16" fill="#141414" stroke="#3a3a3a"/>
-    <text x="786" y="195" class="chip" text-anchor="middle">height ≥ 178</text>
-    <rect x="866" y="174" width="170" height="32" rx="16" fill="#141414" stroke="#ffffff" stroke-opacity="0.6"/>
-    <text x="951" y="195" class="chip" text-anchor="middle">English · required</text>
-    <rect x="716" y="216" width="190" height="32" rx="16" fill="#141414" stroke="#3a3a3a" stroke-dasharray="4 3"/>
-    <text x="811" y="237" class="chip" text-anchor="middle">swimming · preferred</text>
-  </g>
+  <!-- symbolic -->
+  <text x="24" y="416" class="label">SYMBOLIC · STRUCTURED FIELDS</text>
+  <rect x="24" y="428" width="130" height="30" rx="15" fill="#141414" stroke="#3a3a3a"/>
+  <text x="89" y="448" class="chip" text-anchor="middle">gender = male</text>
+  <rect x="162" y="428" width="104" height="30" rx="15" fill="#141414" stroke="#3a3a3a"/>
+  <text x="214" y="448" class="chip" text-anchor="middle">age 40–53</text>
+  <rect x="24" y="466" width="120" height="30" rx="15" fill="#141414" stroke="#3a3a3a"/>
+  <text x="84" y="486" class="chip" text-anchor="middle">height ≥ 178</text>
+  <rect x="152" y="466" width="156" height="30" rx="15" fill="#141414" stroke="#ffffff" stroke-opacity="0.6"/>
+  <text x="230" y="486" class="chip" text-anchor="middle">English · required</text>
+  <rect x="24" y="504" width="170" height="30" rx="15" fill="#141414" stroke="#3a3a3a" stroke-dasharray="4 3"/>
+  <text x="109" y="524" class="chip" text-anchor="middle">swimming · preferred</text>
 
-  <!-- semantic branch -->
-  <path d="M610,310 C660,310 660,420 710,420" fill="none" stroke="#d9a85c" stroke-width="1.5" marker-end="url(#arrowWarm)"/>
-  <text x="716" y="372" class="label">SEMANTIC · APPEARANCE</text>
-  <rect x="716" y="392" width="370" height="36" rx="18" fill="#17120a" stroke="#d9a85c" stroke-opacity="0.8"/>
-  <text x="901" y="415" class="chipwarm" text-anchor="middle">"a man with a warm, weathered face, short hair"</text>
-  <text x="716" y="452" class="sub">matched against photos in a shared image–text space</text>
+  <!-- semantic -->
+  <text x="364" y="416" class="label">SEMANTIC · APPEARANCE</text>
+  <rect x="364" y="428" width="312" height="54" rx="16" fill="#17120a" stroke="#d9a85c" stroke-opacity="0.8"/>
+  <text x="520" y="450" class="chipwarm" text-anchor="middle">"a man with a warm, weathered</text>
+  <text x="520" y="470" class="chipwarm" text-anchor="middle">face, short hair"</text>
+  <text x="364" y="504" class="sub">matched against photos in a shared</text>
+  <text x="364" y="521" class="sub">image–text space</text>
 
   <!-- converge -->
-  <line x1="1096" y1="190" x2="1140" y2="190" stroke="#8a8a8a" stroke-width="1.5"/>
-  <text x="1100" y="180" class="sub">strict filter</text>
-  <line x1="1096" y1="410" x2="1140" y2="410" stroke="#d9a85c" stroke-width="1.5"/>
-  <text x="1100" y="400" class="sub">rank</text>
-  <path d="M1140,190 L1140,280" stroke="#8a8a8a" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
-  <path d="M1140,410 L1140,322" stroke="#d9a85c" stroke-width="1.5" fill="none" marker-end="url(#arrowWarm)"/>
-  <rect x="1082" y="284" width="116" height="36" rx="18" fill="#ffffff"/>
-  <text x="1140" y="307" class="node" text-anchor="middle" style="fill:#050505;font-size:15px">Shortlist</text>
-
+  <path d="M172,542 L172,600 L284,600" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="182" y="590" class="sub">strict filter</text>
+  <path d="M520,542 L520,600 L416,600" fill="none" stroke="#d9a85c" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrowWarm)"/>
+  <text x="510" y="590" class="sub" text-anchor="end">rank</text>
+  <rect x="290" y="582" width="120" height="36" rx="18" fill="#ffffff"/>
+  <text x="350" y="605" class="node" text-anchor="middle" style="fill:#050505;font-size:15px">Shortlist</text>
 </svg>

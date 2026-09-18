@@ -2,13 +2,13 @@
 title: "From a Casting Call to Search Conditions"
 description: "How Castar reads a free-text casting call with a single LLM call, turns it into strict filters and soft preferences, and why it would rather show no one than the wrong actor."
 summary: "One LLM call turns a free-text casting call into strict filters and soft preferences. When nobody matches, we say so instead of loosening the conditions."
-hero: /assets/posts/from-a-casting-call-to-search-conditions/pipeline.svg
-hero_width: 1240
-hero_height: 500
-image: /assets/posts/from-a-casting-call-to-search-conditions/pipeline.png
+hero: /assets/posts/from-a-casting-call-to-search-conditions/cover.png
+hero_width: 1200
+hero_height: 630
+image: /assets/posts/from-a-casting-call-to-search-conditions/cover.png
 ---
 
-A casting call is written for people. A typical one reads something like: *Supporting male role, early 40s to early 50s. Fluent English required. 178 cm or taller. Swimming a plus. A warm but weathered face, short hair.* Most calls on Castar are written in Korean, where the age part would read <span lang="ko">40대 초반~50대 초반</span>, literally "the early part of the 40s to the early part of the 50s."
+A casting call is written for people. A typical one reads something like: *Supporting male role, early 40s to early 50s. Fluent English required. 178 cm or taller. Swimming a plus. A warm but weathered face, short hair.* Most calls on Castar are written in Korean; the examples in this post are English translations.
 
 An actor profile is written for a database. On Castar it holds a small set of structured fields: gender, birth year, height, weight and skills picked from a fixed list. It also has photos.
 
@@ -30,9 +30,9 @@ This post covers the symbolic side. Appearance goes through a separate image–t
 
 ## One call, one small JSON
 
-<figure class="figure figure--wide figure--pipeline" role="group" aria-labelledby="fig1-cap">
+<figure class="figure figure--pipeline" role="group" aria-labelledby="fig1-cap">
   <div class="figure__scroll" tabindex="0" role="region" aria-label="Figure 1, scrolls horizontally on small screens">
-    <img src="{{ '/assets/posts/from-a-casting-call-to-search-conditions/pipeline.svg' | relative_url }}" width="1240" height="500" alt="Pipeline for a fictional casting call: “Supporting male role, early 40s to early 50s. Fluent English required. 178 cm or taller. Swimming a plus. A warm but weathered face, short hair.” One LLM call outputs JSON. The symbolic branch gives structured fields — gender = male, age 40–53, height ≥ 178, English required, swimming preferred — applied as a strict filter. The semantic branch gives the appearance text “a man with a warm, weathered face, short hair,” matched against photos in a shared image–text space and used to rank. Both lead to a shortlist.">
+    <img src="{{ '/assets/posts/from-a-casting-call-to-search-conditions/pipeline.svg' | relative_url }}" width="700" height="640" alt="Pipeline for a fictional casting call: “Supporting male role, early 40s to early 50s. Fluent English required. 178 cm or taller. Swimming a plus. A warm but weathered face, short hair.” One LLM call outputs JSON. The symbolic branch gives structured fields — gender = male, age 40–53, height ≥ 178, English required, swimming preferred — applied as a strict filter. The semantic branch gives the appearance text “a man with a warm, weathered face, short hair,” matched against photos in a shared image–text space and used to rank. Both lead to a shortlist.">
   </div>
   <figcaption id="fig1-cap"><b>Figure 1.</b> One LLM call splits a casting call into symbolic conditions, which become a strict filter over structured profile fields, and a short appearance description, which is matched against photos and used for ranking. <a href="{{ '/assets/posts/from-a-casting-call-to-search-conditions/pipeline.png' | relative_url }}">Open full size</a>.</figcaption>
 </figure>
@@ -60,21 +60,21 @@ The rest of this section goes through the fields one at a time.
 
 ### Gender
 
-Gender is filled when the call states it, or when the role word itself carries it, as with <span lang="ko">아버지</span> ("father") or <span lang="ko">할머니</span> ("grandmother"). Otherwise it stays `null`. An occupation on its own, like "detective," doesn't count.
+Gender is filled when the call states it, or when the role word itself carries it, as with "father" or "grandmother". Otherwise it stays `null`. An occupation on its own, like "detective," doesn't count.
 
 ### Age: decade phrases become numbers
 
-Korean casting calls usually give age as a decade, split into thirds: <span lang="ko">초반</span> (early), <span lang="ko">중반</span> (mid) and <span lang="ko">후반</span> (late). We map each third to a fixed span of final digits: early is X0–X3, mid is X4–X6 and late is X7–X9.
+Casting calls usually give age as a decade, split into thirds: early, mid and late. We map each third to a fixed span of final digits: early is X0–X3, mid is X4–X6 and late is X7–X9.
 
 <div class="table-wrap table-wrap--nums" markdown="1">
 
-| Phrase | Gloss | Range |
-|---|---|---|
-| <span lang="ko">40대</span> | 40s | 40–49 |
-| <span lang="ko">40대 초반</span> | early 40s | 40–43 |
-| <span lang="ko">40대 중반</span> | mid 40s | 44–46 |
-| <span lang="ko">40대 후반</span> | late 40s | 47–49 |
-| <span lang="ko">40대 초반~50대 초반</span> | early 40s to early 50s | 40–53 |
+| Phrase | Range |
+|---|---|
+| 40s | 40–49 |
+| early 40s | 40–43 |
+| mid 40s | 44–46 |
+| late 40s | 47–49 |
+| early 40s to early 50s | 40–53 |
 
 </div>
 
@@ -83,11 +83,11 @@ A span such as the last row takes the lower bound of its first phrase and the up
 <figure class="figure" role="group" aria-labelledby="fig2-cap">
   <div class="figure__frame">
     <svg class="fig-capped" viewBox="0 0 400 190" role="img" aria-labelledby="fig2-title fig2-desc">
-      <title id="fig2-title">Mapping “40대 초반~50대 초반” to ages 40 to 53</title>
+      <title id="fig2-title">Mapping “early 40s to early 50s” to ages 40 to 53</title>
       <desc id="fig2-desc">Two rows of ten ages each, 40 to 49 and 50 to 59. Each decade is divided into early (0 to 3), mid (4 to 6) and late (7 to 9). Ages 40 through 53 are highlighted: all of the forties and the early fifties.</desc>
       <g font-size="14" font-weight="600" fill="#f2f1ec">
-        <text x="4" y="52" lang="ko">40대</text>
-        <text x="4" y="132" lang="ko">50대</text>
+        <text x="4" y="52">40s</text>
+        <text x="4" y="132">50s</text>
       </g>
       <!-- 40s row: all in range -->
       <g fill="#2b2b29" stroke="#ffffff" stroke-width="1.1">
@@ -128,16 +128,16 @@ A span such as the last row takes the lower bound of its first phrase and the up
         <path d="M54,70 V75 H184 V70"/><path d="M190,70 V75 H252 V70"/><path d="M258,70 V75 H388 V70"/>
         <path d="M54,150 V155 H184 V150"/><path d="M190,150 V155 H252 V150"/><path d="M258,150 V155 H388 V150"/>
       </g>
-      <g font-size="12.5" text-anchor="middle" fill="#b4b3ac" lang="ko">
-        <text x="119" y="92">초반</text><text x="221" y="92">중반</text><text x="323" y="92">후반</text>
-        <text x="119" y="172">초반</text><text x="221" y="172">중반</text><text x="323" y="172">후반</text>
+      <g font-size="12.5" text-anchor="middle" fill="#b4b3ac">
+        <text x="119" y="92">early</text><text x="221" y="92">mid</text><text x="323" y="92">late</text>
+        <text x="119" y="172">early</text><text x="221" y="172">mid</text><text x="323" y="172">late</text>
       </g>
     </svg>
   </div>
-  <figcaption id="fig2-cap"><b>Figure 2.</b> <span lang="ko">40대 초반~50대 초반</span> becomes <code>{"min": 40, "max": 53}</code>: from the start of the early forties to the end of the early fifties. Highlighted ages are inside the range.</figcaption>
+  <figcaption id="fig2-cap"><b>Figure 2.</b> “Early 40s to early 50s” becomes <code>{"min": 40, "max": 53}</code>: from the start of the early forties to the end of the early fifties. Highlighted ages are inside the range.</figcaption>
 </figure>
 
-Not every call uses a decade phrase. Bare words such as "young man" (<span lang="ko">청년</span>) or "middle-aged" (<span lang="ko">중년</span>) are mapped to default ranges written into the prompt. The model doesn't make up a range for each query. The defaults are one explicit, editable guess.
+Not every call uses a decade phrase. Bare words such as "young man" or "middle-aged" are mapped to default ranges written into the prompt. The model doesn't make up a range for each query. The defaults are one explicit, editable guess.
 
 The output is always a pair of numbers, never a label. An earlier prototype of our search used two coarse age groups, "young" and "old," and the line between them was never written down anywhere. A numeric range can be checked directly against a birth year, and when a range is wrong, you can see exactly how it's wrong.
 
@@ -151,9 +151,48 @@ Skills on a Castar profile come from a fixed vocabulary: languages, sports, inst
 
 The restriction matters because a filter is only useful if a profile can satisfy it. If the model wrote free-form skills, "horseback riding" would never match a profile that lists Horse riding, and a correct-looking filter would return nobody.
 
+<figure class="figure" role="group" aria-labelledby="fig3-cap">
+  <div class="figure__frame">
+    <svg class="fig-capped" viewBox="0 0 420 196" role="img" aria-labelledby="fig3-title fig3-desc">
+      <title id="fig3-title">Free-form skill phrases mapped to platform skills</title>
+      <desc id="fig3-desc">On the left, phrases as written in casting calls: “can ride horses”, “horseback riding”, “Spanish-speaking” and “fluent English”. Arrows map both horse phrases to the platform skill Horse riding, “Spanish-speaking” to Spanish and “fluent English” to English.</desc>
+      <defs>
+        <marker id="f3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8e8e88"/></marker>
+      </defs>
+      <g font-size="10.5" font-weight="600" letter-spacing="1.6" fill="#8e8e88">
+        <text x="0" y="14">IN THE CASTING CALL</text>
+        <text x="420" y="14" text-anchor="end">PLATFORM SKILL</text>
+      </g>
+      <g font-size="13.5" fill="#b4b3ac">
+        <text x="0" y="50">“can ride horses”</text>
+        <text x="0" y="90">“horseback riding”</text>
+        <text x="0" y="140">“Spanish-speaking”</text>
+        <text x="0" y="180">“fluent English”</text>
+      </g>
+      <g fill="none" stroke="#8e8e88" stroke-width="1.2">
+        <path d="M134,46 C210,46 214,68 286,68" marker-end="url(#f3a)"/>
+        <path d="M134,86 C210,86 214,68 286,68" marker-end="url(#f3a)"/>
+        <path d="M134,136 L286,136" marker-end="url(#f3a)"/>
+        <path d="M134,176 L286,176" marker-end="url(#f3a)"/>
+      </g>
+      <g fill="#2b2b29" stroke="#ffffff" stroke-width="1.1">
+        <rect x="292" y="53" width="128" height="30" rx="15"/>
+        <rect x="292" y="121" width="128" height="30" rx="15"/>
+        <rect x="292" y="161" width="128" height="30" rx="15"/>
+      </g>
+      <g font-size="13.5" font-weight="600" text-anchor="middle" fill="#f2f1ec">
+        <text x="356" y="73">Horse riding</text>
+        <text x="356" y="141">Spanish</text>
+        <text x="356" y="181">English</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption id="fig3-cap"><b>Figure 3.</b> Different wordings of the same skill collapse onto one label from the platform’s vocabulary, so the filter asks for something a profile can actually contain.</figcaption>
+</figure>
+
 ### Required or preferred
 
-Casting calls separate what a role needs from what would be nice to have, and the separation is usually marked in the wording. In English that's "a plus," "preferred" or "nice to have." In Korean calls it's words such as <span lang="ko">우대</span> ("given preference"), <span lang="ko">선호</span> ("preferred") and <span lang="ko">가산점</span> ("bonus points"). "Swimming a plus" puts swimming under `preferred`. Skills stated as plain requirements, like "Fluent English required," go under `required`.
+Casting calls separate what a role needs from what would be nice to have, and the separation is usually marked in the wording. Phrases like "a plus," "preferred," "nice to have" or "bonus points for" mark a condition as optional. "Swimming a plus" puts swimming under `preferred`. Skills stated as plain requirements, like "Fluent English required," go under `required`.
 
 ### Appearance text
 
@@ -165,7 +204,74 @@ Once the conditions are extracted, the required ones are applied as a filter: ge
 
 **If nobody passes, the search stops and tells the producer there are no matching actors yet.** It doesn't loosen the age range or drop the English requirement and try again.
 
-We did it the other way at first. When the filtered pool came back empty, the earlier prototype dropped the weakest condition and retried until something came back. That looks helpful, but it changes the question without telling anyone. A producer who wrote "50s" and sees a 21-year-old at the top of the list will either waste time on a candidate who was never going to fit, or will stop trusting the rest of the list. It's worse because the result looks like a match. Nothing on the screen says "we ignored your age requirement." Relaxation also hid a gap in that prototype. The age filter pointed at a field our actor data didn't fill in, so it always emptied the pool and was always the first condition dropped. Age filtering had been doing nothing, and the results never showed it.
+We did it the other way at first. When the filtered pool came back empty, the earlier prototype dropped the weakest condition and retried until something came back. That looks helpful, but it changes the question without telling anyone. A producer who wrote "50s" and sees a 21-year-old at the top of the list will either waste time on a candidate who was never going to fit, or will stop trusting the rest of the list. It's worse because the result looks like a match. Nothing on the screen says "we ignored your age requirement."
+
+<figure class="figure" role="group" aria-labelledby="fig4-cap">
+  <div class="figure__frame">
+    <svg class="fig-capped" viewBox="0 0 440 236" role="img" aria-labelledby="fig4-title fig4-desc">
+      <title id="fig4-title">Relax-and-retry versus strict filtering</title>
+      <desc id="fig4-desc">Two panels for a fictional call asking for a man in his 50s who speaks English. Left, relax and retry: the age condition is silently dropped and the list comes back with actors aged 21, 26 and 34. Right, strict: all three conditions stay, and the result is “No matching actors yet”, leaving the producer to decide what to loosen.</desc>
+      <defs>
+        <marker id="f4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8e8e88"/></marker>
+      </defs>
+      <g fill="#161616" stroke="rgba(255,255,255,0.12)">
+        <rect x="0.5" y="0.5" width="211" height="235" rx="10"/>
+        <rect x="228.5" y="0.5" width="211" height="235" rx="10"/>
+      </g>
+      <g font-size="10.5" font-weight="600" letter-spacing="1.6" fill="#8e8e88">
+        <text x="16" y="26">RELAX AND RETRY</text>
+        <text x="244" y="26">STRICT</text>
+      </g>
+      <!-- condition chips -->
+      <g font-size="12.5" text-anchor="middle">
+        <rect x="16" y="40" width="50" height="26" rx="13" fill="#2b2b29" stroke="#ffffff" stroke-width="1"/>
+        <text x="41" y="57" fill="#f2f1ec">male</text>
+        <rect x="72" y="40" width="46" height="26" rx="13" fill="none" stroke="#8e8e88" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="95" y="57" fill="#8e8e88">50s</text>
+        <line x1="80" y1="53" x2="110" y2="53" stroke="#b4b3ac" stroke-width="1.2"/>
+        <rect x="124" y="40" width="68" height="26" rx="13" fill="#2b2b29" stroke="#ffffff" stroke-width="1"/>
+        <text x="158" y="57" fill="#f2f1ec">English</text>
+
+        <rect x="244" y="40" width="50" height="26" rx="13" fill="#2b2b29" stroke="#ffffff" stroke-width="1"/>
+        <text x="269" y="57" fill="#f2f1ec">male</text>
+        <rect x="300" y="40" width="46" height="26" rx="13" fill="#2b2b29" stroke="#ffffff" stroke-width="1"/>
+        <text x="323" y="57" fill="#f2f1ec">50s</text>
+        <rect x="352" y="40" width="68" height="26" rx="13" fill="#2b2b29" stroke="#ffffff" stroke-width="1"/>
+        <text x="386" y="57" fill="#f2f1ec">English</text>
+      </g>
+      <text x="95" y="82" font-size="11" text-anchor="middle" fill="#8e8e88" font-style="italic">dropped, silently</text>
+      <g stroke="#8e8e88" stroke-width="1.2">
+        <line x1="106" y1="90" x2="106" y2="110" marker-end="url(#f4a)"/>
+        <line x1="334" y1="90" x2="334" y2="110" marker-end="url(#f4a)"/>
+      </g>
+      <!-- relaxed results -->
+      <g fill="#101010" stroke="rgba(255,255,255,0.12)">
+        <rect x="16" y="118" width="180" height="30" rx="6"/>
+        <rect x="16" y="154" width="180" height="30" rx="6"/>
+        <rect x="16" y="190" width="180" height="30" rx="6"/>
+      </g>
+      <g fill="#3d3d3a">
+        <circle cx="34" cy="133" r="8"/><circle cx="34" cy="169" r="8"/><circle cx="34" cy="205" r="8"/>
+      </g>
+      <g font-size="12.5" fill="#f2f1ec">
+        <text x="52" y="137">Actor · age <tspan font-weight="600">21</tspan></text>
+        <text x="52" y="173">Actor · age <tspan font-weight="600">26</tspan></text>
+        <text x="52" y="209">Actor · age <tspan font-weight="600">34</tspan></text>
+      </g>
+      <g font-size="11" font-family="'IBM Plex Mono', ui-monospace, monospace" fill="#8e8e88" text-anchor="end">
+        <text x="186" y="137">#1</text><text x="186" y="173">#2</text><text x="186" y="209">#3</text>
+      </g>
+      <!-- strict result -->
+      <rect x="244" y="118" width="176" height="102" rx="8" fill="none" stroke="#b4b3ac" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="332" y="160" font-size="13.5" font-weight="600" text-anchor="middle" fill="#f2f1ec">No matching actors yet</text>
+      <g font-size="11.5" text-anchor="middle" fill="#b4b3ac">
+        <text x="332" y="184">The producer decides</text>
+        <text x="332" y="200">what to loosen.</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption id="fig4-cap"><b>Figure 4.</b> The same fictional call, “a man in his 50s, English required,” against a fictional pool with no such actor. Relaxing quietly answers a different question; the strict filter answers the one that was asked.</figcaption>
+</figure>
 
 An empty result carries information. It tells the producer that the platform doesn't have this person yet, and the producer can decide which condition to loosen, since they know which ones actually matter for the role. It also tells us where the actor pool is thin.
 
@@ -179,7 +285,7 @@ Here is the fictional casting call from Figure 1 in full.
 
 <div class="casting-call">
   <dl>
-    <dt>Role</dt><dd>Supporting male role, early 40s to early 50s.<span class="gloss">In Korean: <span lang="ko">조연, 남, 40대 초반~50대 초반</span></span></dd>
+    <dt>Role</dt><dd>Supporting male role, early 40s to early 50s.</dd>
     <dt>Required</dt><dd>Fluent English required.</dd>
     <dt>Height</dt><dd>178 cm or taller.</dd>
     <dt>Preferred</dt><dd>Swimming a plus.</dd>
@@ -207,7 +313,7 @@ The single LLM call returns (field names and labels simplified):
 Line by line:
 
 - "Male" becomes `"gender": "male"`. "Supporting" describes the size of the part, not the actor, so it doesn't become a condition.
-- "Early 40s to early 50s" (<span lang="ko">40대 초반~50대 초반</span>) becomes 40–53, using the rule from Figure 2.
+- "Early 40s to early 50s" becomes 40–53, using the rule from Figure 2.
 - "178 cm or taller" has a number, so it becomes a lower bound on height. There is no upper bound.
 - "Fluent English required" is normalized to the platform skill English and, because the call says "required," it's a required skill.
 - "Swimming a plus" is marked as a plus, so Swimming is preferred.

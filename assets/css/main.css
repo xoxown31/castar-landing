@@ -100,18 +100,10 @@ main { display: block; outline: none; }
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-weight: 600; font-size: 1.375rem; letter-spacing: 0.01em;
   color: var(--ink); text-decoration: none;
-  display: inline-flex; align-items: baseline;
-  padding-top: 6px;
+  display: inline-flex; align-items: center;
 }
-.wordmark__t { position: relative; display: inline-block; }
-.wordmark__star {
-  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 8px; color: var(--accent);
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.85));
-}
+.wordmark__logo { display: block; width: 81px; height: 30px; }
 
 .site-nav { display: flex; gap: 6px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.03em; }
 .site-nav a {
@@ -309,23 +301,12 @@ main { display: block; outline: none; }
 }
 .figure figcaption b { color: var(--ink-muted); font-weight: 600; }
 
-/* Wide figures break out of the text column on large screens. */
-@media (min-width: 900px) {
-  .prose .figure--wide {
-    width: min(calc(100vw - 2 * var(--gutter)), var(--wide));
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-}
 .figure__scroll {
   background: #050505; border: 1px solid var(--line); border-radius: 10px;
   overflow-x: auto; overflow-y: hidden;
 }
 .figure__scroll img { width: 100%; height: auto; }
-/* On narrow screens keep the figure's text legible and let it scroll sideways. */
-@media (max-width: 760px) {
-  .figure__scroll img { width: 880px; max-width: none; }
-}
+/* Figures fit the column at every width; "Open full size" covers zooming on phones. */
 @media (max-width: 600px) {
   .figure__frame { padding: 16px 10px; }
 }
