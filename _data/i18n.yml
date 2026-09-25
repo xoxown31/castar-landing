@@ -1,0 +1,43 @@
+# Interface strings per language. Page and post text lives in the pages themselves.
+en:
+  name: English
+  home: /
+  about: /about/
+  feed: /feed.xml
+  feed_title: Castar Blog (English)
+  blog: Blog
+  about_label: About
+  all_posts: All posts
+  posts_heading: Posts
+  no_posts: No posts yet.
+  skip: Skip to content
+  home_aria: Castar — blog home
+  nav_aria: Main
+  date_format: "%B %-d, %Y"
+  read_before: ""
+  read_after: " min read"
+  chars_per_minute: 0        # 0 = count words (220 per minute)
+  switch_aria: English version of this page
+  switch_home_aria: Go to the English blog
+  team: Castar Team
+ko:
+  name: 한국어
+  home: /ko/
+  about: /ko/about/
+  feed: /ko/feed.xml
+  feed_title: Castar 블로그 (한국어)
+  blog: 블로그
+  about_label: 소개
+  all_posts: 모든 글
+  posts_heading: 글 목록
+  no_posts: 아직 글이 없습니다.
+  skip: 본문 바로가기
+  home_aria: Castar 블로그 홈
+  nav_aria: 주 메뉴
+  date_format: "%Y년 %-m월 %-d일"
+  read_before: "읽는 데 "
+  read_after: "분"
+  chars_per_minute: 650      # Korean: count non-space characters instead of words
+  switch_aria: 이 페이지의 한국어판
+  switch_home_aria: 한국어 블로그로 가기
+  team: Castar 팀

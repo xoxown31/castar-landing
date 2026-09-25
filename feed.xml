@@ -1,0 +1,31 @@
+---
+layout: null
+permalink: /feed.xml
+lang: en
+sitemap: false
+---
+{%- comment -%} Atom feed for one language, plain Liquid (no jekyll-feed), so each language gets its own feed. Unpublished posts and drafts are never in site.posts. {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign feed_posts = site.posts | where: 'lang', page.lang -%}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ page.lang }}">
+  <title>{{ t.feed_title | xml_escape }}</title>
+  <link href="{{ page.url | absolute_url }}" rel="self" type="application/atom+xml"/>
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" hreflang="{{ page.lang }}"/>
+  <updated>{% if feed_posts.size > 0 %}{{ feed_posts.first.date | date_to_xmlschema }}{% else %}{{ site.time | date_to_xmlschema }}{% endif %}</updated>
+  <id>{{ page.url | absolute_url | xml_escape }}</id>
+  <icon>{{ '/assets/img/castar-mark.svg' | absolute_url }}</icon>
+  <author><name>{{ t.team | xml_escape }}</name></author>
+  {%- for post in feed_posts limit: 20 %}
+  <entry xml:lang="{{ page.lang }}">
+    <title type="html">{{ post.title | strip_html | normalize_whitespace | xml_escape }}</title>
+    <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html"/>
+    <published>{{ post.date | date_to_xmlschema }}</published>
+    <updated>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</updated>
+    <id>{{ post.url | absolute_url | xml_escape }}</id>
+    <author><name>{{ post.author | default: t.team | xml_escape }}</name></author>
+    <summary type="html">{{ post.summary | default: post.description | strip_html | normalize_whitespace | xml_escape }}</summary>
+    <content type="html" xml:base="{{ post.url | absolute_url | xml_escape }}">{{ post.content | strip | xml_escape }}</content>
+  </entry>
+  {%- endfor %}
+</feed>

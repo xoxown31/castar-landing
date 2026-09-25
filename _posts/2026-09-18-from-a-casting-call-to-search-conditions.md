@@ -1,4 +1,6 @@
 ---
+lang: en
+translation_key: casting-call-to-search-conditions
 title: "From a Casting Call to Search Conditions"
 description: "How Castar reads a free-text casting call with a single LLM call, turns it into strict filters and soft preferences, and why it would rather show no one than the wrong actor."
 summary: "One LLM call turns a free-text casting call into strict filters and soft preferences. When nobody matches, we say so instead of loosening the conditions."

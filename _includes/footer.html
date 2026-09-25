@@ -1,9 +1,9 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <span>&copy; {{ site.time | date: '%Y' }} Castar Team</span>
+    <span>&copy; {{ site.time | date: '%Y' }} {{ t.team }}</span>
     <span class="site-footer__links">
-      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ t.feed | relative_url }}">RSS</a>
+      <a href="{{ t.about | relative_url }}">{{ t.about_label }}</a>
     </span>
   </div>
 </footer>

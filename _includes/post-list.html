@@ -1,0 +1,27 @@
+{%- comment -%} Posts in the current page's language only (expects lang.html to have run). {%- endcomment -%}
+{%- assign lang_posts = site.posts | where: 'lang', ui_lang -%}
+<section class="post-index" aria-labelledby="posts-heading">
+  <h2 id="posts-heading" class="visually-hidden">{{ t.posts_heading }}</h2>
+  {%- if lang_posts.size == 0 %}
+  <p class="post-index__empty">{{ t.no_posts }}</p>
+  {%- else %}
+  <ol class="post-list">
+    {%- for post in lang_posts %}
+    <li class="post-card">
+      <a class="post-card__link" href="{{ post.url | relative_url }}">
+        {%- if post.hero %}
+        <span class="post-card__media">
+          <img src="{{ post.hero | relative_url }}" alt="" width="{{ post.hero_width | default: 1200 }}" height="{{ post.hero_height | default: 630 }}" loading="lazy" decoding="async">
+        </span>
+        {%- endif %}
+        <span class="post-card__body">
+          <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: t.date_format }}</time>
+          <span class="post-card__title">{{ post.title }}</span>
+          <span class="post-card__summary">{{ post.summary | default: post.description }}</span>
+        </span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- endif %}
+</section>

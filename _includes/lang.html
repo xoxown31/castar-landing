@@ -1,0 +1,21 @@
+{%- comment -%}
+  Language context, plugin-free (GitHub Pages safe mode). Include it at the top of
+  every layout or page that prints interface text: each renders in its own Liquid context.
+  ui_lang   this page's language (en | ko)
+  t         interface strings for ui_lang (_data/i18n.yml)
+  alt_lang  the other language
+  alt_doc   the same page in alt_lang (shared translation_key), if published
+  alt_url   alt_doc's URL, or alt_lang's home when there is no counterpart
+{%- endcomment -%}
+{%- assign ui_lang = page.lang | default: site.lang | default: 'en' -%}
+{%- if ui_lang == 'ko' -%}{%- assign alt_lang = 'en' -%}{%- else -%}{%- assign ui_lang = 'en' -%}{%- assign alt_lang = 'ko' -%}{%- endif -%}
+{%- assign t = site.data.i18n[ui_lang] -%}
+{%- assign t_alt = site.data.i18n[alt_lang] -%}
+{%- assign alt_doc = nil -%}
+{%- if page.translation_key -%}
+  {%- assign alt_pages = site.pages | where: 'translation_key', page.translation_key | where: 'lang', alt_lang -%}
+  {%- assign alt_posts = site.posts | where: 'translation_key', page.translation_key | where: 'lang', alt_lang -%}
+  {%- assign alt_docs = alt_pages | concat: alt_posts -%}
+  {%- assign alt_doc = alt_docs | first -%}
+{%- endif -%}
+{%- if alt_doc -%}{%- assign alt_url = alt_doc.url -%}{%- else -%}{%- assign alt_url = t_alt.home -%}{%- endif -%}

@@ -1,7 +1,10 @@
 ---
 layout: default
 body_class: home
+lang: en
+translation_key: home
 ---
+{%- include lang.html -%}
 <section class="intro">
   <div class="intro__inner">
     <h1 class="intro__title">Castar Blog</h1>
@@ -9,24 +12,4 @@ body_class: home
   </div>
 </section>
 
-<section class="post-index" aria-labelledby="posts-heading">
-  <h2 id="posts-heading" class="visually-hidden">Posts</h2>
-  <ol class="post-list">
-    {%- for post in site.posts %}
-    <li class="post-card">
-      <a class="post-card__link" href="{{ post.url | relative_url }}">
-        {%- if post.hero %}
-        <span class="post-card__media">
-          <img src="{{ post.hero | relative_url }}" alt="" width="{{ post.hero_width | default: 1200 }}" height="{{ post.hero_height | default: 630 }}" loading="lazy" decoding="async">
-        </span>
-        {%- endif %}
-        <span class="post-card__body">
-          <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %-d, %Y' }}</time>
-          <span class="post-card__title">{{ post.title }}</span>
-          <span class="post-card__summary">{{ post.summary | default: post.description }}</span>
-        </span>
-      </a>
-    </li>
-    {%- endfor %}
-  </ol>
-</section>
+{% include post-list.html %}

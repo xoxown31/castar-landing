@@ -6,9 +6,24 @@
 <meta name="robots" content="noindex">
 {%- endif %}
 {% seo %}
-{% feed_meta %}
+{%- unless page.noindex %}
+<link rel="alternate" hreflang="{{ ui_lang }}" href="{{ page.url | absolute_url }}">
+{%- if alt_doc %}
+<link rel="alternate" hreflang="{{ alt_lang }}" href="{{ alt_doc.url | absolute_url }}">
+{%- endif %}
+{%- if ui_lang == 'en' %}
+<link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- elsif alt_doc %}
+<link rel="alternate" hreflang="x-default" href="{{ alt_doc.url | absolute_url }}">
+{%- endif %}
+{%- endunless %}
+<link rel="alternate" type="application/atom+xml" title="{{ t.feed_title }}" href="{{ t.feed | absolute_url }}">
 <link rel="icon" href="{{ '/assets/img/castar-mark.svg' | relative_url }}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+{%- if ui_lang == 'ko' %}
+{%- comment -%} Korean pages only: Noto Serif KR (the Source Han Serif design, a sibling of Source Serif) for headings, IBM Plex Sans KR for text. {%- endcomment %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+{%- endif %}
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">

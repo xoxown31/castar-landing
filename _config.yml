@@ -23,13 +23,14 @@ kramdown:
 
 permalink: /blog/:year/:month/:title/
 
+# Only GitHub Pages–whitelisted plugins. The Atom feeds are plain Liquid
+# templates (feed.xml, ko/feed.xml) so each language gets its own feed.
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
-feed:
-  path: feed.xml
-
+# Bilingual without plugins: every page and post carries `lang` (en | ko) and,
+# when it has a counterpart in the other language, a shared `translation_key`.
+# Korean posts live in _posts/ko/ (drafts in _drafts/ko/) and are served under /ko/.
 defaults:
   - scope:
       path: ""
@@ -37,11 +38,36 @@ defaults:
     values:
       layout: post
       author: Castar Team
+      lang: en
+      locale: en_US
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      lang: ko
+      locale: ko_KR
+      author: Castar 팀
+      permalink: /ko/blog/:year/:month/:title/
+  - scope:
+      path: "_drafts/ko"
+    values:
+      lang: ko
+      locale: ko_KR
+      author: Castar 팀
+      permalink: /ko/blog/:year/:month/:title/
   - scope:
       path: ""
       type: pages
     values:
       layout: page
+      lang: en
+      locale: en_US
+  - scope:
+      path: "ko"
+      type: pages
+    values:
+      lang: ko
+      locale: ko_KR
 
 exclude:
   - README.md

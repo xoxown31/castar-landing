@@ -1,6 +1,8 @@
 ---
 title: About
 permalink: /about/
+lang: en
+translation_key: about
 description: About Castar, an actor–casting matching platform, and this blog.
 ---
 
