@@ -1,17 +1,12 @@
 ---
 lang: en
+date: 2026-11-15 11:00:00 +0900
 translation_key: criteria-before-candidates
 title: "Criteria Before Candidates: How Castar Recommends Actors for a Role"
 description: "For each role, a language model first writes the criteria that matter and how much each one weighs. Only then does a vision-language model score every shortlisted actor against them. Search similarity never enters the score."
 summary: "The model writes a role-specific rubric first, then scores each candidate against it. Every point in the final score traces back to a named, weighted criterion."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Facts are from the AI server code (recommend.py, api.py, INTEGRATION.md) as of mirror commit e679549.
-- There is NO quantitative evaluation of recommendations yet. The "What this doesn't solve yet" section says so. If an eval is run before publishing (e.g. overlap between producers' picks and the top-k), add a results section.
-- Confirm with the backend/FE whether producers are told when stage-1 conditions were relaxed, and whether the criteria are shown on the dashboard; the post claims neither.
-- Cross-links to the other drafts use guessed publish months; fix them when dates are set.
--->
 
 Search answers a question someone typed. Recommendation answers one nobody typed: *a producer has posted a role, so who should they look at first?*
 

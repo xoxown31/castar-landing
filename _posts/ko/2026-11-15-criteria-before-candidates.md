@@ -1,17 +1,12 @@
 ---
 lang: ko
+date: 2026-11-15 11:00:00 +0900
 translation_key: criteria-before-candidates
 title: "후보보다 기준이 먼저: Castar가 배역에 맞는 배우를 추천하는 방법"
 description: "배역마다 언어 모델이 먼저 중요한 기준과 각 기준의 가중치를 정합니다. 그다음에야 비전-언어 모델이 추려 낸 배우 한 명 한 명을 그 기준에 따라 채점합니다. 검색 유사도는 점수에 들어가지 않습니다."
 summary: "모델이 배역에 맞는 평가 기준을 먼저 쓰고, 그 기준으로 후보를 한 명씩 채점합니다. 최종 점수는 1점까지 모두 이름과 가중치가 있는 기준으로 거슬러 올라갑니다."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Facts are from the AI server code (recommend.py, api.py, INTEGRATION.md) as of mirror commit e679549.
-- There is NO quantitative evaluation of recommendations yet. The "What this doesn't solve yet" section says so. If an eval is run before publishing (e.g. overlap between producers' picks and the top-k), add a results section.
-- Confirm with the backend/FE whether producers are told when stage-1 conditions were relaxed, and whether the criteria are shown on the dashboard; the post claims neither.
-- Cross-links to the other drafts use guessed publish months; fix them when dates are set.
--->
 
 검색은 누군가 입력한 질문에 답합니다. 추천은 아무도 입력하지 않은 질문에 답합니다. *제작진이 배역을 올렸다면, 누구부터 봐야 할까?*
 

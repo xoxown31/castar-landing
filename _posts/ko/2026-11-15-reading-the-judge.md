@@ -1,17 +1,12 @@
 ---
 lang: ko
+date: 2026-11-15 10:00:00 +0900
 translation_key: reading-the-judge
 title: "판정자의 답을 읽는 법: 외모 검색에 “귀여운” 얼굴을 가르치기"
 description: "제로샷 이미지–텍스트 검색은 인상을 나타내는 단어를 잘 읽지 못합니다. 비전-언어 모델은 이런 단어를 훨씬 잘 판단하지만, 쿼리마다 돌리기에는 너무 느립니다. 그 판단을 학습 신호로 바꾸는 방법을 연구했고, 답의 형식보다 답을 읽는 방식이 더 중요하다는 것을 확인했습니다."
 summary: "VLM은 “귀여운”, “단정한” 같은 인상을 제로샷 검색보다 훨씬 잘 판단합니다. 묘사로 받으면 그 판단이 버려지고, 평점과 순위로 받으면 대부분 남습니다. 단, 답을 제대로 읽어야 합니다."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Numbers come from the team's ARR Oct 2026 submission (Tables 1, 7, 8). Re-check against the PDF before publishing.
-- All experiments use One Million Impressions (OMI, CC BY-NC-SA). Do NOT add OMI face images to this post. Diagrams only.
-- The post deliberately makes NO claim about which concepts the production adapter uses. Do not add one unless it is checked against the deployed adapter.
-- Before publishing: check which concepts the production adapter was trained on, and get the team's and the supervising professor's agreement (it is published under the company name and reports a bias audit).
--->
 
 [지난 글]({{ '/ko/blog/2026/09/from-a-casting-call-to-search-conditions/' | relative_url }})은 캐스팅 공고의 절반을 남겨 둔 채 끝났습니다. *“순한 인상의 20대 여성”* 같은 공고는 프로필 필드로 답할 수 있는 조건(여성, 20–29세)과 어떤 필드로도 답할 수 없는 나머지, 즉 *순한 인상*으로 깔끔하게 나뉩니다. 이 나머지는 이미지–텍스트 채널로 넘어가고, 이 채널은 필터를 통과한 배우들을 사진이 그 묘사와 얼마나 잘 맞는지에 따라 순서대로 정렬합니다.
 
