@@ -1,17 +1,12 @@
 ---
 lang: en
+date: 2026-11-15 10:00:00 +0900
 translation_key: reading-the-judge
 title: "Reading the Judge: Teaching Appearance Search What “Cute” Looks Like"
 description: "Zero-shot image–text search reads impression words poorly. A vision-language model judges them far better, but too slowly to run per query. We studied how to turn its judgments into training signal, and found that the way an answer is read matters more than its format."
 summary: "A VLM can judge impressions like “cute” or “well-groomed” much better than zero-shot search. Descriptions waste that judgment; ratings and rankings keep it, as long as you read the answer properly."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Numbers come from the team's ARR Oct 2026 submission (Tables 1, 7, 8). Re-check against the PDF before publishing.
-- All experiments use One Million Impressions (OMI, CC BY-NC-SA). Do NOT add OMI face images to this post. Diagrams only.
-- The post deliberately makes NO claim about which concepts the production adapter uses. Do not add one unless it is checked against the deployed adapter.
-- Before publishing: check which concepts the production adapter was trained on, and get the team's and the supervising professor's agreement (it is published under the company name and reports a bias audit).
--->
 
 Our [last post]({{ '/blog/2026/09/from-a-casting-call-to-search-conditions/' | relative_url }}) ended with half a casting call left over. A call such as *"a sweet-faced woman in her twenties"* splits cleanly into conditions a profile field can answer (female, 20–29) and a residue that no field can: *sweet-faced*. That residue goes to an image–text channel, which ranks the actors who passed the filter by how well their photos match it.
 

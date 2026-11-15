@@ -1,17 +1,12 @@
 ---
 lang: ko
+date: 2026-11-15 12:00:00 +0900
 translation_key: a-percentile-not-a-similarity
 title: "유사도가 아니라 백분위로: 배우에게 배역 추천하기"
 description: "이미지–텍스트 유사도 원값은 배역끼리 비교할 수 없습니다. Castar는 배우에게 보여 줄 배역을, 각 배역의 조건을 충족하는 배우 전체 가운데 그 배우가 어디쯤 있는지로 정렬합니다. 모델 작업은 모두 미리 끝내 두고, 응답은 1밀리초 정도에 돌려줍니다."
 summary: "유사도 0.31은 배역마다 뜻이 다릅니다. 배우에게 보여 줄 배역은 각 배역의 적격 풀 안에서의 백분위로 정렬하고, 한 줄짜리 이유까지 모든 것을 미리 계산해 둡니다."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Facts are from the AI server code (postings.py, role_text.py, posting_reasons.py, sync/live_sync.py, DEPLOY_POSTINGS.md) as of mirror commit e679549.
-- Figure 1 numbers are illustrative, not measured. Say so in the caption (it does).
-- No evaluation of fit quality yet; the post says so.
-- Cross-links to earlier posts use guessed publish months; fix them when dates are set.
--->
 
 [지난 글]({{ '/ko/blog/2026/11/criteria-before-candidates/' | relative_url }})에서는 제작진에게 배우를 추천하는 방법을 다뤘습니다. 이번에는 반대 방향입니다. 배우가 Castar를 열었을 때, 어떤 배역을 먼저 보여 줘야 할까요?
 

@@ -1,17 +1,12 @@
 ---
 lang: en
+date: 2026-11-15 12:00:00 +0900
 translation_key: a-percentile-not-a-similarity
 title: "A Percentile, Not a Similarity: Recommending Roles to Actors"
 description: "Raw image–text similarity can't be compared across roles. Castar ranks the roles it shows an actor by where that actor stands among everyone eligible for each role, does all model work ahead of time, and answers in about a millisecond."
 summary: "A similarity of 0.31 means different things for different roles. We rank roles for an actor by percentile within each role's eligible pool, and precompute everything, including the one-line reasons."
 ---
 
-<!-- AUTHOR NOTES (delete before publishing)
-- Facts are from the AI server code (postings.py, role_text.py, posting_reasons.py, sync/live_sync.py, DEPLOY_POSTINGS.md) as of mirror commit e679549.
-- Figure 1 numbers are illustrative, not measured. Say so in the caption (it does).
-- No evaluation of fit quality yet; the post says so.
-- Cross-links to earlier posts use guessed publish months; fix them when dates are set.
--->
 
 Our [last post]({{ '/blog/2026/11/criteria-before-candidates/' | relative_url }}) was about recommending actors to a producer. This one is about the other direction: when an actor opens Castar, which roles should they see first?
 
